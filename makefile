@@ -1,10 +1,10 @@
 CC=g++
 CFLAGS=-Wall
-INCDIR=-I..\SFML-2.3.2\include
-LIBDIR=-L..\SFML-2.3.2\lib
+INCDIR=-IT:\dropbox\code\SFML-2.3.2\include
+LNKFLG=-LT:\dropbox\code\SFML-2.3.2\lib -lsfml-graphics -lsfml-window -lsfml-system
 
 all:
-	$(CC) $(CFLAGS) $(INCDIR) $(LIBEDIR) main.cpp -o main.exe
+	$(CC) $(CFLAGS) $(INCDIR) main.cpp -o main.exe $(LNKFLG)
 
 clean:
-	rm -f *o *exe
+	del /q *.o *.exe
