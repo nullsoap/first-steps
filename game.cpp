@@ -11,6 +11,9 @@ void Game::Start(void)
 	
 	_mainWindow.create(sf::VideoMode(1024,768), "gamefromscratch.com tutorial app");
 
+	_player1.Load("img/paddle.png");
+	_player1.SetPosition((1024/2)-45,700);
+	
 	_gameState = Game::ShowingSplash;
 	
 	while(!IsExiting())
@@ -72,7 +75,8 @@ void Game::GameLoop()
 			sf::Event currentEvent;
 			while(_mainWindow.pollEvent(currentEvent))
 			{
-				_mainWindow.clear(sf::Color(255,255,0));
+				_mainWindow.clear(sf::Color(0,0,0));
+				_player1.Draw(_mainWindow);
 				_mainWindow.display();
 				
 				if(currentEvent.type == sf::Event::Closed)
@@ -109,3 +113,4 @@ void Game::GameLoop()
 
 Game::GameState Game::_gameState = Uninitialized;
 sf::RenderWindow Game::_mainWindow;
+PlayerPaddle Game::_player1;
