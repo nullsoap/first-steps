@@ -2,6 +2,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "playerpaddle.h"
+#include "gameobjectmanager.h"
 
 class Game
 {
@@ -20,5 +21,6 @@ class Game
 				
 		static GameState _gameState;
 		static sf::RenderWindow _mainWindow;
-		static PlayerPaddle _player1;
+		
+		static GameObjectManager _gameObjectManager;
 };

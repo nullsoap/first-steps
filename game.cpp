@@ -3,6 +3,7 @@
 #include "game.h"
 #include "splashscreen.h"
 #include "mainmenu.h"
+#include "gameobjectmanager.h"
 
 void Game::Start(void)
 {
@@ -11,9 +12,11 @@ void Game::Start(void)
 	
 	_mainWindow.create(sf::VideoMode(1024,768), "gamefromscratch.com tutorial app");
 
-	_player1.Load("img/paddle.png");
-	_player1.SetPosition((1024/2)-45,700);
+	PlayerPaddle* player1 = new PlayerPaddle();
+	player1->Load("img/paddle.png");
+	player1->SetPosition((1024/2)-45,700);
 	
+	_gameObjectManager.Add("Paddle1",player1);
 	_gameState = Game::ShowingSplash;
 	
 	while(!IsExiting())
@@ -61,6 +64,9 @@ void Game::ShowMenu()
 
 void Game::GameLoop()
 {
+	sf::Event currentEvent;
+	_mainWindow.pollEvent(currentEvent);
+	
 	switch(_gameState)
 	{
 		case Game::Uninitialized:
@@ -72,21 +78,19 @@ void Game::GameLoop()
 		
 		case Game::Playing:
 		{
-			sf::Event currentEvent;
-			while(_mainWindow.pollEvent(currentEvent))
+			_mainWindow.clear(sf::Color(0,0,0));
+			
+			_gameObjectManager.DrawAll(_mainWindow);
+			
+			_mainWindow.display();
+			
+			if(currentEvent.type == sf::Event::Closed)
+				_gameState = Game::Exiting;
+			
+			if(currentEvent.type == sf::Event::KeyPressed)
 			{
-				_mainWindow.clear(sf::Color(0,0,0));
-				_player1.Draw(_mainWindow);
-				_mainWindow.display();
-				
-				if(currentEvent.type == sf::Event::Closed)
-					_gameState = Game::Exiting;
-				
-				if(currentEvent.type == sf::Event::KeyPressed)
-				{
-					if(currentEvent.key.code == sf::Keyboard::Escape)
-						ShowMenu();
-				}
+				if(currentEvent.key.code == sf::Keyboard::Escape)
+					ShowMenu();
 			}
 			break;
 		}
@@ -113,4 +117,4 @@ void Game::GameLoop()
 
 Game::GameState Game::_gameState = Uninitialized;
 sf::RenderWindow Game::_mainWindow;
-PlayerPaddle Game::_player1;
+GameObjectManager Game::_gameObjectManager;

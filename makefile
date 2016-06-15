@@ -2,7 +2,8 @@ CC=g++
 CFLAGS=-Wall
 INCDIR=-IT:\dropbox\code\SFML-2.3.2\include
 LNKFLG=-LT:\dropbox\code\SFML-2.3.2\lib -lsfml-graphics -lsfml-window -lsfml-system
-objects=main.o game.o splashscreen.o mainmenu.o visiblegameobject.o playerpaddle.o
+objects=main.o game.o splashscreen.o mainmenu.o visiblegameobject.o playerpaddle.o \
+			gameobjectmanager.o
 
 all: $(objects)
 	$(CC) $(CFLAGS) $(INCDIR) -o main.exe $(objects) $(LNKFLG)
@@ -24,6 +25,9 @@ visiblegameobject.o: visiblegameobject.cpp visiblegameobject.h
 	
 playerpaddle.o: playerpaddle.cpp playerpaddle.h
 	$(CC) $(CFLAGS) $(INCDIR) -c playerpaddle.cpp
+
+gameobjectmanager.o: gameobjectmanager.cpp gameobjectmanager.h
+	$(CC) $(CFLAGS) $(INCDIR) -c gameobjectmanager.cpp
 	
 clean:
 	rm *.o *.exe
