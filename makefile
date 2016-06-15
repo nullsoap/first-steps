@@ -20,4 +20,5 @@ mainmenu.o: mainmenu.cpp mainmenu.h
 	$(CC) $(CFLAGS) $(INCDIR) -c mainmenu.cpp
 	
 clean:
-	del /q *.o *.exe
+	rm *.o *.exe
+	
